@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>Modal Plugin</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="stylesheets/modal.css" />
+    <script src="javascripts/jquery-1.6.2.min.js"></script>
+    <script src="javascripts/jquery.modal.js"></script>
+    <script src="javascripts/examples.js"></script>
+  </head>
+  <body>
+    <section>
+      <article>
+        <h1>Example in-page modal</h1>
+        <p><a href="#" class="modal_in_page">Open</a></p>
+      </article>
+
+      <p>Scroll down to Ajax demo &rarr;</p>
+
+      <article>
+        <h1>Example Ajax modal</h1>
+        <p><a href="_modal.html" class="modal">Open</a></p>
+      </article>
+
+      <article id="modal_in_page" class="modal">
+        <h1>In-page Modal</h1>
+        <form action="" method="post">
+          <fieldset>
+            <dl>
+              <dt>
+                <label>Name</label>
+              </dt>
+              <dd>
+                <input type="text" />
+              </dd>
+              <dt>
+                <label>Email</label>
+              </dt>
+              <dd>
+                <input type="email" />
+              </dd>
+            </dl>
+          </fieldset>
+          <fieldset class="actions">
+            <input type="submit" value="Send" />
+            <a href="#" class="cancel">Cancel</a>
+          </fieldset>
+        </form>
+      </article>
+      <div id="modal_layer"></div>
+    </section>
+  </body>
+</html>

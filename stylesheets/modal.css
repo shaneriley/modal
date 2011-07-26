@@ -1,0 +1,60 @@
+@import url("whitespace-reset.css");
+
+body {
+  padding: 40px 0 0 0;
+  font: normal 14px Helvetica, Arial, sans-serif;
+  color: #333333;
+  background: #163305; }
+a {
+  text-decoration: none;
+  color: #3399ff; }
+a:hover, a:focus { text-decoration: underline; }
+
+section {
+  width: 620px;
+  min-height: 1000px;
+  margin: 0 auto; }
+article {
+  width: 600px;
+  padding: 20px 25px;
+  margin: 0 auto 640px auto;
+  background: #ffffff;
+  -webkit-box-shadow: 0 0 8px 3px #1e1e1e;
+  -moz-box-shadow: 0 0 8px 3px #1e1e1e;
+  box-shadow: 0 0 8px 3px #1e1e1e; }
+  p + article { margin-bottom: 40px; }
+  article + p {
+    position: absolute;
+    left: 50%;
+    top: 150px;
+    z-index: 1;
+    width: 0;
+    white-space: nowrap;
+    font-size: 18px;
+    color: #ffffff;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+    outline: 1px solid red; }
+h1 {
+  margin: 0 0 15px 0;
+  font: normal 22px/16px Georgia, Palatino, serif;
+  border-bottom: 1px solid #cccccc; }
+
+article.modal {
+  display: none;
+  position: absolute;
+  z-index: 100; }
+  article.modal p {
+    padding: 0 0 25px 0;
+    line-height: 140%; }
+#modal_layer {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  opacity: .7; }
