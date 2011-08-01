@@ -34,6 +34,11 @@ article#main ul li {
   margin: 0 0 20px 0;
 }
 
+article#modal {
+  width: 600px;
+  padding-bottom: 0;
+}
+
 article.modal {
   display: none;
   position: absolute;
