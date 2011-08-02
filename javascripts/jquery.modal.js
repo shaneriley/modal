@@ -74,7 +74,6 @@
         }
         return $(container, $e.attributes).appendTo(document.body);
       };
-
       if (!$modal.length) {
         $modal = createModalElement($modal, "modal", opts.modal_container);
       }
@@ -82,10 +81,12 @@
         $modal_layer = createModalElement($modal_layer, "modal_layer", "<div />");
       }
       if (opts.modal_class) { $modal.addClass(opts.modal_class); }
-      var margin_left =  -($modal.outerWidth() / 2);
+      return $modal;
+    }
+    function positionModal() {
       $modal.css($.extend({
         left: "50%",
-        marginLeft: margin_left
+        marginLeft: -($modal.outerWidth() / 2)
       }, opts.position));
     }
     function open() {
@@ -94,6 +95,7 @@
         opts.beforeSend($a);
       }
       configureModal.apply(this);
+      positionModal();
       escBind();
       animateModal();
       return false;
@@ -149,6 +151,7 @@
         opts.beforeSend();
       }
       configureModal.apply(this);
+      positionModal();
       escBind();
       $modal.empty();
       var url = $a.attr("rel") ? $a.attr("href") + " " + $a.attr("rel") : $a.attr("href");
