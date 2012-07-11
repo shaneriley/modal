@@ -1,0 +1,27 @@
+%article#main
+  %h1 jQuery Modal plugin
+  %h2 by Shane Riley
+  %ul
+    %li
+      here's a
+      = link_to "static modal", "#", class: "modal_in_page"
+    %li
+      here's an
+      = link_to "Ajax modal", "/modal.html", class: "ajax_modal"
+%article#modal_in_page.modal
+  %h1 In-page Modal
+  %form(action="" method="post")
+    %fieldset
+      %dl
+        %dt
+          %label Name
+        %dd
+          %input(type="text")
+        %dt
+          %label Email
+        %dd
+          %input(type="email")
+    %fieldset.actions
+      %input(type="submit" value="Send")
+      = link_to "cancel", "#", class: "close"
+#modal_layer

@@ -35,37 +35,37 @@ article#main ul li {
 }
 
 article#modal {
-  width: 600px;
   padding-bottom: 0;
 }
 
-article.modal {
+.modal {
   display: none;
   position: absolute;
-  background: #fff;
-  color: #333;
-  padding: 40px;
   z-index: 100;
+  width: 600px;
+  padding: 40px;
+  color: #333;
+  background: #fff;
   -webkit-box-shadow: 0 0 8px 3px #000;
-  -moz-box-shadow: 0 0 8px 3px #000;}
-  article.modal p {
+  -moz-box-shadow: 0 0 8px 3px #000; }
+  .modal p {
     padding: 0 0 25px 0;
     line-height: 140%; }
-  article.modal h1 {
+  .modal h1 {
     margin: 0 0 20px 0;
   }
-  article.modal dd {
+  .modal dd {
     margin: 0 0 15px 0;
   }
-  article.modal input[type="text"],
-  article.modal input[type="email"] {
+  .modal input[type="text"],
+  .modal input[type="email"] {
     border: 1px solid #999;
     width: 200px;
     padding: 3px 5px; }
-  article.modal input[type="submit"] {
+  .modal input[type="submit"] {
     margin: 0 10px 0 0;
   }
-  article.modal a {
+  .modal a {
     color: #649550;
   }
 #modal_layer {
