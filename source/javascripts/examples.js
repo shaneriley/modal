@@ -7,6 +7,7 @@ $(function() {
   });
 
   $("a.ajax_modal").modal({
+    modal_container: "<article />",
     selectors: {
       modal: ".modal"
     },

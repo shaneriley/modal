@@ -39,6 +39,7 @@
       modal: "#modal",
       context: null
     },
+    modal_container: "<div />",
     ajaxCallback: $.noop,
     beforeSend: $.noop,
     beforeShow: $.noop,
@@ -80,7 +81,7 @@
         m.$el = $((id ? "#" + id : "") + (klass ? "." + klass : ""));
       }
       if (!m.$el.length) {
-        m.$el = $("<div />", {
+        m.$el = $(m.modal_container, {
           id: id,
           "class": klass
         }).appendTo(document.body);
@@ -103,13 +104,13 @@
         left: "50%",
         marginLeft: -(m.$el.outerWidth() / 2)
       }, m.style));
-      if(m.center_modal) {
-        m.verticalCenter();
-      }
+      m.center_modal && m.verticalCenter();
     },
     verticalCenter: function() {
-      this.$el.show().css(
-        { top: ($(window).height() - this.$el.outerHeight()) / 2 , display: 'none'});
+      this.$el.show().css({
+        top: ($(window).height() - this.$el.outerHeight()) / 2,
+        display: "none"
+      });
     },
     animate: function() {
       var m = $.isPlainObject(this) ? this : $(this).data(modal.name),
