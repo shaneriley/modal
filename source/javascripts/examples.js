@@ -16,4 +16,18 @@ $(function() {
       top: 40
     }
   });
+
+  $("#welcome").modal({
+    ajax: false,
+    selectors: {
+      modal: "#welcome"
+    }
+  }).modal("open");
+
+  $(document).keyup(function(e) {
+    if (String.fromCharCode(e.which) !== "H") { return; }
+    var $m = $("#welcome");
+    $m.data("modal").beforeShow = function() { alert("Added a callback after initialization"); };
+    $m.is(":hidden") && $m.modal("open");
+  });
 });

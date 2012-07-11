@@ -2,11 +2,12 @@
 
 **Disclaimer**: This plugin is not meant to provide you with all the fancy-pants stuff people have come to expect from plugins like Lightbox. It is meant to be a simple means to either open an in-page container or create a new one and load it with content via Ajax. The plugin fades the modal and modal layer in and out at the specified duration and will trigger the close event based on clicking an anchor with class of close, clicking the modal layer, or pressing escape on the keyboard.
 
-By default, it centers the modal horizontally in the viewport based on the width of the modal container. The modal is positioned 20 pixels from the top of the screen unless you pass in a different position. For example, to change the positioning to place it 40px from the top left of the screen, you would pass an options object with a position object that would look like this:
+By default, it centers the modal horizontally and vertically in the viewport based on the dimensions of the modal container. The modal is positioned 20 pixels from the top of the screen unless you pass in a different position. For example, to change the positioning to place it 40px from the top left of the screen, you would pass an options object with a position object that would look like this:
 
 ```javascript
 $("a").modal({
-  position: {
+  center_modal: false,
+  style: {
     left: 40,
     top: 40,
     marginLeft: 0
@@ -29,19 +30,18 @@ If set to middle or bottom and the modal is positioned outside of the visible ar
 The modal and modal layer selectors are #modal and #modal_layer by default. Pass in values for modal and modal_layer to override these.
 
 ```javascript
-$("a").modal({ modal: "#price_comparison", modal_layer: "#overlay" });
+$("a").modal({
+  selectors: {
+    modal: "#price_comparison",
+    modal_layer: "#overlay"
+  }
+});
 ```
 
 If the modal element is not present on the page, a new element is created. It is a div by default. To use a different element, pass in a string representation of the element as the modal_container property.
 
 ```javascript
 $("a").modal({ modal_container: "<section />" });
-```
-
-You can specify additional classes to be added to the modal container with the modal_class property. The string format follows the jQuery convention for the addClass method.
-
-```javascript
-$("a").modal({ modal_class: "price new" });
 ```
 
 There are a number of callback points that can be used to perform operations at different points in the modal cycle. Callbacks can be called as beforeSend, beforeShow, ajaxCallback, and afterClose.
@@ -64,9 +64,3 @@ $("a").modal({ ajax: false });
 If the modal contents are loaded via Ajax and you want to grab only a specific container from the return of the request, add a rel attribute with a CSS format selector to use to find the container element. This works exactly like jQuery's load method of pulling a page fragment from the return of the request.
 
 ```<a href="/contact" rel="form#contact">Contact us</a>```
-
-If you are attaching the modal trigger to an element that did not exist on the page when the page was first rendered, you will need to set the bind_type property to "bind". By default, the event binding uses the live method.
-
-```javascript
-$("a").modal({ bind_type: "bind" });
-```

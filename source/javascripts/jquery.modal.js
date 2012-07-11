@@ -107,6 +107,10 @@
       m.center_modal && m.verticalCenter();
     },
     verticalCenter: function() {
+      if (this.$el.outerHeight() - 40 > $(window).height()) {
+        this.center_modal = false;
+        return;
+      }
       this.$el.show().css({
         top: ($(window).height() - this.$el.outerHeight()) / 2,
         display: "none"
