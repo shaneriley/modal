@@ -98,25 +98,41 @@
       }
     },
     position: function() {
-      this.$el.css($.extend({
+      var m = this;
+      m.$el.css($.extend({
         left: "50%",
-        marginLeft: -(this.$el.outerWidth() / 2)
-      }, this.style));
+        marginLeft: -(m.$el.outerWidth() / 2)
+      }, m.style));
+      if(m.center_modal) {
+        m.verticalCenter();
+      }
+    },
+    verticalCenter: function() {
+      this.$el.show().css(
+        { top: ($(window).height() - this.$el.outerHeight()) / 2 , display: 'none'});
     },
     animate: function() {
       var m = $.isPlainObject(this) ? this : $(this).data(modal.name),
           $els;
       if (m.$el.innerHeight() > window.innerHeight) {
         m.$el.css({
-          position: "absolute",
-          top: m.style.top || window.pageYOffset + 20
+          position: "absolute"
         });
+        if (!m.center_modal) {
+          m.$el.css({
+            top: m.style.top || window.pageYOffset + 20
+          });
+        }
       }
       else {
         m.$el.css({
-          position: "fixed",
-          top: m.style.top || 20
+          position: "fixed"
         });
+        if (!m.center_modal) {
+          m.$el.css({
+            top: m.style.top || 20
+          });
+        }
       }
       if (m.align_to_trigger && m.align_to_trigger in m.alignModal) {
         m.$el.css("position", "absolute");
