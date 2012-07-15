@@ -56,7 +56,7 @@
         @._parent.$el.css "top", top
     escBind: () ->
       m = @
-      $(document).bind "keyup." + m.name + ".escBind", (e) ->
+      $(document).bind "keyup.#{m.name}.escBind", (e) ->
         if e.keyCode is 27 and m.$el.is ":visible"
           m.close()
           $(document).unbind e
@@ -120,12 +120,11 @@
       m.beforeShow()
       unless m.$overlay.data "original_opacity"
         m.$overlay.data "original_opacity", m.$overlay.css "opacity"
-      m.$overlay.show().css opacity: 0
+      m.$overlay.show().css(opacity: 0)
         .animate({ opacity: m.$overlay.data("original_opacity") }, m.duration)
       m.$el.show().css({ opacity: 0 }).animate({ opacity: 1 }, m.duration, m.ajaxCallback)
       $els = m.$overlay.add(m.$el.find(".close")).off("." + modal.name)
-      $els.on "click." + modal.name + ".close", m.close
-        .data modal.name, m
+      $els.on("click.#{modal.name}.close", m.close).data modal.name, m
     show: (e) ->
       e.preventDefault()
       m = $(@).data(modal.name)
@@ -146,7 +145,7 @@
       m.beforeSend()
       m.createModalElements()
       m.$el.empty()
-      url = if m.$trigger.attr "rel" then m.$trigger.attr "href"  + " " + m.$trigger.attr "rel"  else m.$trigger.attr "href"
+      url = if m.$trigger.attr "rel" then "#{m.$trigger.attr "href"} #{m.$trigger.attr "rel"}"  else m.$trigger.attr "href"
       if /.+\.(png|jpg|jpeg|gif)(\?.+)?$/i.test url
         img = new Image()
         img.src = url
@@ -163,7 +162,7 @@
           m.position()
           m.animate()
     init: () ->
-      m = @;
+      m = @
       clickHandler = (e) ->
         m.show.call @, e
 
@@ -171,9 +170,9 @@
       !m.$el.length and m.createModalElements()
       $.each m, (o) -> $.isPlainObject(m[o]) and (m[o]._parent = m)
       if m.selectors.context
-        $(m.selectors.context).on "click." + m.name + ".show", m.$trigger, m.data, clickHandler
+        $(m.selectors.context).on "click.#{m.name}.show", m.$trigger, m.data, clickHandler
       else
-        m.$trigger.on "click." + m.name + ".show", null, m.data, clickHandler
+        m.$trigger.on "click.#{m.name}.show", null, m.data, clickHandler
       m.escBind()
 
   $.fn[modal.name] = (opts) ->
@@ -190,6 +189,6 @@
         $els.eq(i).data modal.name, plugin_instance
         plugin_instance.init()
     else
-      $.error 'Method ' +  method + ' does not exist on jQuery.' + modal.name
+      $.error "Method #{method} does not exist on jQuery.#{modal.name}"
     $els
 )(jQuery)
