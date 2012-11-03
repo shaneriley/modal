@@ -16,6 +16,7 @@
     ajaxCallback: function() // Called after Ajax request AND modal animation
     beforeSend: function() // Called before Ajax request
     beforeShow: function() // Called after Ajax request and before animation
+    beforeClose: function() // Called before closing animation. If return is false, close does not fire
     afterClose: function() // Called after closing animation
     align_to_trigger: "top" // Vertical alignment relative to trigger element. ("top", "middle", "bottom")
   };
@@ -33,6 +34,7 @@
     ajax: true,
     duration: 500,
     center_modal: true,
+    close_keys: [27],
     style: {},
     selectors: {
       modal_layer: "#modal_layer",
@@ -43,6 +45,7 @@
     ajaxCallback: $.noop,
     beforeSend: $.noop,
     beforeShow: $.noop,
+    beforeClose: $.noop,
     afterClose: $.noop,
     align_to_trigger: null,
     alignModal: {
@@ -61,7 +64,7 @@
     escBind: function() {
       var m = this;
       $(document).bind("keyup." + m.name + ".escBind", function(e) {
-        if (e.keyCode === 27 && m.$el.is(":visible")) {
+        if ($.inArray(e.which, m.close_keys) !== -1 && m.$el.is(":visible")) {
           m.close();
           $(document).unbind(e);
         }
@@ -168,7 +171,9 @@
     },
     close: function(e) {
       var m = $.isPlainObject(this) ? this : $(this).data(modal.name);
-      m.$el.add(m.$overlay).fadeOut(m.duration, m.afterClose);
+      if (m.beforeClose(m.$trigger) !== false) {
+        m.$el.add(m.$overlay).fadeOut(m.duration, m.afterClose);
+      }
       e && "preventDefault" in e && e.preventDefault();
     },
     loadContent: function() {
