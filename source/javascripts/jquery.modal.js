@@ -154,7 +154,7 @@
       $els.on("click." + modal.name + ".close", m.close).data(modal.name, m);
     },
     show: function(e) {
-      e.preventDefault();
+      e && "preventDefault" in e && e.preventDefault();
       var m = $(this).data(modal.name);
       m.ajax ? m.loadContent() : m.open();
     },

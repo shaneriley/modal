@@ -126,7 +126,7 @@
       $els = m.$overlay.add(m.$el.find(".close")).off("." + modal.name)
       $els.on("click.#{modal.name}.close", m.close).data modal.name, m
     show: (e) ->
-      e.preventDefault()
+      e and "preventDefault" in e and e.preventDefault()
       m = $(@).data(modal.name)
       if m.ajax then m.loadContent() else m.open()
     open: (e) ->
