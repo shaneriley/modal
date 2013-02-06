@@ -41,4 +41,21 @@ $(function() {
     $m.data("modal").beforeShow = function() { alert("Added a callback after initialization"); };
     $m.is(":hidden") && $m.modal("open");
   });
+
+  $("input").keyup(function() {
+    if (!/^modal$/i.test(this.value)) { return; }
+    var $m = $.modal({
+      $el: $("<article />", {
+        "class": "modal",
+        id: "standalone"
+      }),
+      selectors: {
+        modal: "#standalone"
+      },
+      ajax: false
+    });
+    $("<p />", { text: "This modal was created with the $.modal method.\
+      The same options apply." }).appendTo($m);
+    $m.modal("show");
+  });
 });

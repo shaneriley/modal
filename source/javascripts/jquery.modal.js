@@ -7,6 +7,8 @@
     name: "modal", // Plugin name. Used for attaching a jQuery method and namespacing event bindings.
     ajax: true, // Whether to load the modal from the href or if it already exists in page
     duration: 500, // Fade in/out speed, in milliseconds
+    context: "section#main", // A selector representing the container the modal should be written to.
+                             // Default is document.body
     style: {}, // An object containing CSS properties for styling, i.e.: top, left, marginLeft
     selectors: {
       modal_layer: "#modal_layer", // Selector for modal overlay
@@ -33,6 +35,7 @@
     name: "modal",
     ajax: true,
     duration: 500,
+    context: "",
     center_modal: true,
     close_keys: [27],
     style: {},
@@ -80,15 +83,16 @@
       };
 
       popAttributes();
-      if (!m.ajax) {
+      if (!m.ajax && !m.$el.length) {
         m.$el = $((id ? "#" + id : "") + (klass ? "." + klass : ""));
       }
       if (!m.$el.length) {
         m.$el = $(m.modal_container, {
           id: id,
           "class": klass
-        }).appendTo(document.body);
+        }).appendTo(m.context || document.body);
       }
+      else { m.$el.appendTo(m.context || document.body); }
       m.$el.data(modal.name, m);
       id = m.selectors.modal_layer.match(/#([a-z0-9\-_]+)/i);
       klass = m.selectors.modal_layer.match(/\.([a-z0-9\-_]+)/i);
@@ -202,6 +206,11 @@
         });
       }
     },
+    singleton: function() {
+      var m = this;
+      m.createModalElements();
+      return m.$el;
+    },
     init: function() {
       var m = this;
       var clickHandler = function(e) {
@@ -241,5 +250,10 @@
       $.error('Method ' +  method + ' does not exist on jQuery.' + modal.name);
     }
     return $els;
+  };
+
+  $[modal.name] = function(opts) {
+    var instance = $.extend(true, {}, modal, opts);
+    return instance.singleton();
   };
 })(jQuery);

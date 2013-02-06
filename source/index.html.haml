@@ -8,6 +8,9 @@
     %li
       here's an
       = link_to "Ajax modal", "/modal.html", class: "ajax_modal"
+    %li
+      %label(for="plugin_name") Type modal in the input for a standalone modal
+      %input#plugin_name(type="text" name="plugin_name")
 
 %article#modal_in_page.modal
   %h1 In-page Modal
