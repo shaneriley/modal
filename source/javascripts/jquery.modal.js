@@ -1,11 +1,14 @@
 /*
   Modal Plugin by Shane Riley
+  Version: 1.2.0
+  License: MIT (http://opensource.org/licenses/MIT)
   Calling:
   $("a").modal();
   Options:
   {
     name: "modal", // Plugin name. Used for attaching a jQuery method and namespacing event bindings.
     ajax: true, // Whether to load the modal from the href or if it already exists in page
+    ajax_opts: {}, // Accepts all options that $.ajax accepts. Defaults to GET using the trigger's href.
     duration: 500, // Fade in/out speed, in milliseconds
     context: "section#main", // A selector representing the container the modal should be written to.
                              // Default is document.body
@@ -34,6 +37,10 @@
   var modal = {
     name: "modal",
     ajax: true,
+    ajax_opts: {
+      type: "get",
+      success: $.noop
+    },
     duration: 500,
     context: "",
     center_modal: true,
@@ -200,10 +207,21 @@
           m.animate();
         };
       } else {
-        m.$el.load(url, function() {
+        m.ajax_opts.url = m.ajax_opts.url || url.replace(/^#/, "");
+        if (!m.ajax_opts.url) {
+          console.warn("$.modal: An Ajax URL has not been given. Skipping Ajax loading.");
           m.position();
           m.animate();
-        });
+          return;
+        }
+        $.ajax($.extend(true, {}, m.ajax_opts, {
+          success: function(html) {
+            m.$el.html(html);
+            m.ajax_opts.success(html);
+            m.position();
+            m.animate();
+          }
+        }));
       }
     },
     singleton: function() {
@@ -219,7 +237,7 @@
 
       m.createModalElements();
       !m.$el.length && m.createModalElements();
-      $.each(m, function(o) { $.isPlainObject(m[o]) && (m[o]._parent = m); });
+      $.each(m, function(o) { $.isPlainObject(m[o]) && o !== "ajax_opts" && (m[o]._parent = m); });
       if (m.selectors.context) {
         $(m.selectors.context).on("click." + m.name + ".show", m.$trigger, m.data, clickHandler);
       }

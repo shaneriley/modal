@@ -1,5 +1,7 @@
 # jQuery Modal Plugin
 
+## Version: 1.2.0
+
 **Disclaimer**: This plugin is not meant to provide you with all the fancy-pants stuff people have come to expect from plugins like Lightbox. It is meant to be a simple means to either open an in-page container or create a new one and load it with content via Ajax. The plugin fades the modal and modal layer in and out at the specified duration and will trigger the close event based on clicking an anchor with class of close, clicking the modal layer, or pressing escape on the keyboard.
 
 By default, it centers the modal horizontally and vertically in the viewport based on the dimensions of the modal container. The modal is positioned 20 pixels from the top of the screen unless you pass in a different position. For example, to change the positioning to place it 40px from the top left of the screen, you would pass an options object with a position object that would look like this:

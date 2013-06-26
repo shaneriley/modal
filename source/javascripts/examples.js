@@ -19,6 +19,9 @@ $(function() {
 
   $("a.ajax_modal").modal({
     modal_container: "<article />",
+    ajax_opts: {
+      url: "/modal.html"
+    },
     selectors: {
       modal: ".modal"
     },
