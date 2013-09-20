@@ -52,9 +52,6 @@ $(function() {
         "class": "modal",
         id: "standalone"
       }),
-      selectors: {
-        modal: "#standalone"
-      },
       ajax: false
     });
     $("<p />", { text: "This modal was created with the $.modal method.\

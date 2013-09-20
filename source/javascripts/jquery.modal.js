@@ -80,6 +80,11 @@
         }
       });
     },
+    bind_close_to: {
+      keys: true,
+      modal_layer: true,
+      close_links: true
+    },
     createModalElements: function() {
       var m = this,
           id = m.selectors.modal.match(/#([a-z0-9\-_]+)/i),
@@ -164,8 +169,12 @@
       m.$overlay.show().css({opacity: 0})
         .animate({opacity: m.$overlay.data("original_opacity")}, m.duration);
       m.$el.show().css({opacity: 0}).animate({opacity: 1}, m.duration, m.ajaxCallback);
-      $els = m.$overlay.add(m.$el.find(".close")).off("." + modal.name);
-      $els.on("click." + modal.name + ".close", m.close).data(modal.name, m);
+      m.$overlay.add(m.$el.find(".close")).off("click." + modal.name + ".close").data(modal.name, m);
+      m.bind_close_to.modal_layer && m.bindCloseTo(m.$overlay);
+      m.bind_close_to.close_links && m.bindCloseTo(m.$el.find(".close"));
+    },
+    bindCloseTo: function($els) {
+      $els.on("click." + modal.name + ".close", this.close);
     },
     show: function(e) {
       e && "preventDefault" in e && e.preventDefault();
@@ -244,7 +253,7 @@
       else {
         m.$trigger.on("click." + m.name + ".show", null, m.data, clickHandler);
       }
-      m.escBind();
+      m.bind_close_to.keys && m.escBind();
     }
   };
 
